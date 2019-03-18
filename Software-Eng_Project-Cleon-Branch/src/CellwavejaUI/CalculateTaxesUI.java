@@ -22,53 +22,67 @@ public class CalculateTaxesUI extends JPanel {
 	public CalculateTaxesUI() {
 		setLayout(null);
 		
-		JLabel lblCalculateTaxes = new JLabel("Calculate Tax of a product");
+		JLabel lblCalculateTaxes = new JLabel("Calculate The GCT to be paid for a specific Month");
 		lblCalculateTaxes.setBounds(0, 0, 511, 22);
 		lblCalculateTaxes.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblCalculateTaxes.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblCalculateTaxes);
 		
-		JLabel lblEnterCurrentPercentage = new JLabel("Enter current percentage of G.C.T:");
+		JLabel lblEnterCurrentPercentage = new JLabel("Enter current G.C.T rate:");
 		lblEnterCurrentPercentage.setBounds(0, 188, 272, 30);
 		lblEnterCurrentPercentage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEnterCurrentPercentage.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		add(lblEnterCurrentPercentage);
 		
 		textField = new JTextField();
-		textField.setBounds(300, 190, 72, 30);
+		textField.setToolTipText("Enter as a a number e.g 16.5 or 17.5");
+		textField.setBounds(300, 190, 116, 30);
 		add(textField);
 		textField.setColumns(10);
 		
 		
-		JLabel lblNewLabel = new JLabel("Enter Model Number of product:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(0, 151, 244, 30);
-		add(lblNewLabel);
+		JLabel lblMonthYear = new JLabel("Enter the Month-Year of G.C.T to be Calculated:");
+		lblMonthYear.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblMonthYear.setBounds(12, 148, 344, 30);
+		add(lblMonthYear);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(256, 153, 116, 22);
+		textField_1.setToolTipText("Enter in the format mm-yyyy or 02-2018 ");
+		textField_1.setBounds(363, 153, 116, 22);
 		add(textField_1);
 		textField_1.setColumns(10);
 
 
 		
-		JButton btnNewButton = new JButton("Enter GCT");
-		btnNewButton.setBounds(68, 245, 97, 25);
-		add(btnNewButton);
+		JButton btnCalculateGCT = new JButton("Calculate G.C.T ");
+		btnCalculateGCT.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnCalculateGCT.setBounds(141, 252, 181, 30);
+		add(btnCalculateGCT);
 		
 		JLabel lblNewLabel_1 = new JLabel("New label");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(363, 246, 116, 21);
+		lblNewLabel_1.setBounds(347, 314, 116, 21);
 		add(lblNewLabel_1);
 		
-		JLabel lblTax = new JLabel("TAX:");
-		lblTax.setBounds(233, 249, 56, 16);
-		add(lblTax);
+		JLabel lblAmountToBe = new JLabel("Amount To Be Paid:");
+		lblAmountToBe.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblAmountToBe.setBounds(97, 316, 175, 16);
+		add(lblAmountToBe);
 		
 		
-		btnNewButton.addActionListener(new ActionListener() {
+		btnCalculateGCT.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lblNewLabel_1.setText(String.valueOf(taxes(Double.parseDouble(textField.getText()),textField_1.getText())));
+				String monthYear=textField_1.getText();
+				Float totalGCT=(float)0;
+				for (int i=0; i<AddnewTransactiontofile.newTransactions.size(); i++){
+					String tMonth =AddnewTransactiontofile.newTransactions.get(i).getTransactionMonth();
+					String tYear= AddnewTransactiontofile.newTransactions.get(i).getTransactionYear();
+					String tMonthYear=tMonth+"-"+tYear ;
+					if (monthYear.equals(tMonthYear)){
+						totalGCT+=AddnewTransactiontofile.newTransactions.get(i).getCashtendered();
+					}
+				}
+				lblNewLabel_1.setText("$"+String.valueOf(totalGCT));
 			}
 		});
 		

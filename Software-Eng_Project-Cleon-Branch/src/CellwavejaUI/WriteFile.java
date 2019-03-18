@@ -50,7 +50,7 @@ public class WriteFile {
 	}			
 	public static boolean writeToCustomerFile() {
 		File files=new File("Files");
-		File customerInfo= new File("Files\\CustomersFile");
+		File customerInfo= new File("Files\\CustomersFiles");
 		if(files.exists()) {
 			System.out.println("the folder already exists");
 			
@@ -95,7 +95,7 @@ public class WriteFile {
 	}	
 	public static boolean writeToTransactionFile() {
 		File files=new File("Files");
-		File transactionInfo= new File("Files\\TransactionFile");
+		File transactionInfo= new File("Files\\TransactionFiles");
 		if(files.exists()) {
 			System.out.println("the folder already exists");
 
@@ -110,32 +110,33 @@ public class WriteFile {
 			System.out.println("the file already exists");
 			try {
 				FileWriter filew= new FileWriter(transactionInfo);
-				BufferedWriter buffw=new BufferedWriter(filew);
+				BufferedWriter bufft=new BufferedWriter(filew);
 				for(Core.Transaction t: AddnewTransactiontofile.newTransactions) {
-					buffw.write(t.getTransactionNumber()+"//"+t.getCustomerId()+"//"+ t.getCustomerName() +"//"+t.getProductName()+"//"+t.getProductType()+"//"+t.getProductColour()+"//"+t.getTransactionDate()+"//"+t.getCashtendered()+"//"+t.getCashOrCard() );
+					bufft.write(t.getTransactionNumber()+"//"+t.getCustomerId()+"//"+ t.getCustomerName() +"//"+t.getProductName()+"//"+t.getProductType()+"//"+t.getProductColour()+"//"+t.getTransactionDate()+"//"+t.getCashtendered()+"//"+t.getCashOrCard() );
 				}
-				buffw.close();
+				bufft.close();
 				return true;
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
 		}else {
 			try {
-					transactionInfo.createNewFile();
+				transactionInfo.createNewFile();
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
 			try {
 				FileWriter filew= new FileWriter(transactionInfo);
-				BufferedWriter buffw=new BufferedWriter(filew);
+				BufferedWriter bufft=new BufferedWriter(filew);
 				for(Core.Transaction t: AddnewTransactiontofile.newTransactions) {
-					buffw.write(t.getTransactionNumber()+"//"+t.getCustomerId()+"//"+ t.getCustomerName() +"//"+t.getProductName()+"//"+t.getProductType()+"//"+t.getProductColour()+"//"+t.getTransactionDate()+"//"+t.getCashtendered()+"//"+t.getCashOrCard()+"//"+t.getProductModelNumber());
+					bufft.write(t.getTransactionNumber()+"//"+t.getCustomerId()+"//"+ t.getCustomerName() +"//"+t.getProductName()+"//"+t.getProductType()+"//"+t.getProductColour()+"//"+t.getTransactionDate()+"//"+t.getCashtendered()+"//"+t.getCashOrCard());
 				}
-				buffw.close();
+				bufft.close();
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
 		}
 		return true;
-	}			
+	}
+	
 }

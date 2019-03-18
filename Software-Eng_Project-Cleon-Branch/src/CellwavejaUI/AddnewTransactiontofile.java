@@ -1,5 +1,6 @@
 package CellwavejaUI;
 import Core.*;
+
 import Util.DateUtil;
 
 import java.util.*;
@@ -10,12 +11,12 @@ import java.awt.event.*;
 import java.awt.image.*;
 import java.util.Date;
 import java.text.*;
-//import java.util.
+import java.util.*;
 
 public class AddnewTransactiontofile extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
-	private Date transactionDate;
+	private String transactionDate;
 	private String cashOrCard;
     private String customerId;
     private String customerName;
@@ -26,6 +27,7 @@ public class AddnewTransactiontofile extends JPanel {
 	private Float cashTendered;
 	
 	public static ArrayList<Transaction> newTransactions = new ArrayList<Transaction>();
+	private JTextField textField_CashTendered;
 
 	/**
 	 * Create the panel.
@@ -109,7 +111,7 @@ public class AddnewTransactiontofile extends JPanel {
 		panel.add(textField_4ProductType);
 		
 		JTextField textField_6Colour = new JTextField();
-		textField_6Colour.setToolTipText("Enter value as a Number e.g 14.00 or 600.00");
+		textField_6Colour.setToolTipText("");
 		textField_6Colour.setColumns(10);
 		textField_6Colour.setBounds(468, 320, 366, 22);
 		panel.add(textField_6Colour);
@@ -127,17 +129,18 @@ public class AddnewTransactiontofile extends JPanel {
 				//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				//Calendar cal = Calendar.getInstance();
 				//transactionDate = (dateFormat.format(cal.getTime()));
-				String today = DateUtil.today();
-				transactionDate = DateUtil.stringToDate(today);
-
-
+				//String today = DateUtil.today();
+				//transactionDate = DateUtil.stringToDate(today);
+				Date td= new Date();
+				DateFormat df=new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
+				transactionDate=df.format(td);
 				boolean success=true;		
 				if(textField_2ProductName.getText().isEmpty()||textField_7CashOrCard.getText().isEmpty()||textField_4ProductType.getText().isEmpty()||textField_6Colour.getText().isEmpty()) {
 					success=false;
 					JOptionPane.showMessageDialog(null, "INPUT DATA IN ALL FIELDS", "Input Error", JOptionPane.INFORMATION_MESSAGE);
 				}
 				if (success==true) {
-					final int transactionNum = newTransactions.size()+1;
+					int transactionNum = newTransactions.size()+1;
 
 					cashOrCard = textField_7CashOrCard.getText();
 					customerId = textFieldCustomerID.getText();
@@ -146,20 +149,23 @@ public class AddnewTransactiontofile extends JPanel {
 					productName = textField_2ProductName.getText();
 					productType = textField_4ProductType.getText();
 					productColour = textField_6Colour.getText();
-					//cashTendered = Float.valueOf(textField_CashTendered.getText());
-					cashTendered = 2000f;
+					cashTendered = Float.valueOf(textField_CashTendered.getText());
+					
 					
 
 					removeAll();
 					newTransactions.add(new Transaction(transactionNum, transactionDate, cashOrCard, customerId, customerName, productModelNumber,
 										productName, productType, productColour, cashTendered));
+					if(WriteFile.writeToTransactionFile()==true) {
+						JOptionPane.showMessageDialog(null, "Transaction Information Saved", "Notification", JOptionPane.INFORMATION_MESSAGE);
+					}
 					add(new TransactionInformationUI(),BorderLayout.CENTER);
 					revalidate();
 				}	
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 18));
-		btnNewButton.setBounds(617, 439, 258, 101);
+		btnNewButton.setBounds(627, 454, 258, 101);
 		panel.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Cancel\r\n");//,new ImageIcon(addproductinformationGUI.class.getResource("/images/cancelicon.PNG")));
@@ -172,8 +178,19 @@ public class AddnewTransactiontofile extends JPanel {
 			}
 		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 18));
-		btnNewButton_1.setBounds(319, 439, 185, 100);
+		btnNewButton_1.setBounds(320, 454, 185, 100);
 		panel.add(btnNewButton_1);
+		
+		textField_CashTendered = new JTextField();
+		textField_CashTendered.setToolTipText("Enter value as a Number e.g 14.00 or 600.00\"\r\n");
+		textField_CashTendered.setColumns(10);
+		textField_CashTendered.setBounds(467, 402, 366, 22);
+		panel.add(textField_CashTendered);
+		
+		JLabel lblCashtendered = new JLabel("CashTendered:");
+		lblCashtendered.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblCashtendered.setBounds(319, 402, 130, 25);
+		panel.add(lblCashtendered);
 		
 		
 		

@@ -46,13 +46,17 @@ public class profitLostUI extends JPanel {
 		
 		JLabel lblresult = new JLabel("\"Result\"");
 		lblresult.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblresult.setBounds(145, 122, 133, 30);
+		lblresult.setBounds(157, 122, 245, 30);
 		add(lblresult);
 		
 		JButton btnCalculate = new JButton("Calculate");
 		btnCalculate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lblresult.setText(String.valueOf(profit_Loss(textField.getText())));
+				if (profit_Loss(textField.getText())==0){
+					lblresult.setText("Product was not sold ");
+				}else {
+					lblresult.setText(String.valueOf(profit_Loss(textField.getText())));
+				}
 			}
 		});
 		btnCalculate.setBounds(341, 74, 97, 25);
@@ -65,14 +69,8 @@ public class profitLostUI extends JPanel {
 			for ( int i =0;i<addproductinformationGUI.newProducts.size(); i++) {
 				String m = addproductinformationGUI.newProducts.get(i).getModelNumber();
 				if (m.equals(model)) {
-					pL =  addproductinformationGUI.newProducts.get(i).getSellingPrice()- addproductinformationGUI.newProducts.get(i).getSellingPrice();
-					return pL;
-				} else {
-					
-					System.out.println("Product not found!");
-					return pL = 0;
-				}
-
+					pL +=  addproductinformationGUI.newProducts.get(i).getSellingPrice()- addproductinformationGUI.newProducts.get(i).getSellingPrice();
+				} 
 			}
 			return pL;
 		}

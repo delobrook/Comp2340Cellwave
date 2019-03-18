@@ -103,17 +103,17 @@ public class InventoryUI extends JPanel {
 		btnNewButton_1.setPreferredSize(new Dimension(30,30));
 		panel.add(btnNewButton_1);
 		
-		JButton btnUpdate = new JButton("Update");
+		JButton btnUpdate = new JButton("Update");//updates information
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addproductinformationGUI.newProducts.clear();
 				for(int i=0; i<tmodel.getRowCount();i++) {
-					Product.createProduct(tmodel.getValueAt(i, 0).toString(),tmodel.getValueAt(i, 1).toString() , tmodel.getValueAt(i, 2).toString(), tmodel.getValueAt(i, 7).toString(),
-							Float.parseFloat(tmodel.getValueAt(i, 5).toString()),Float.parseFloat( tmodel.getValueAt(i, 6).toString()),Integer.parseInt(tmodel.getValueAt(i, 3).toString()),productimagename.get(i), tmodel.getValueAt(i, 4).toString());
+					addproductinformationGUI.newProducts.add(Product.createProduct(tmodel.getValueAt(i, 0).toString(),tmodel.getValueAt(i, 1).toString() , tmodel.getValueAt(i, 2).toString(), tmodel.getValueAt(i, 7).toString(),
+							Float.parseFloat(tmodel.getValueAt(i, 5).toString()),Float.parseFloat( tmodel.getValueAt(i, 6).toString()),Integer.parseInt(tmodel.getValueAt(i, 3).toString()),productimagename.get(i), tmodel.getValueAt(i, 4).toString()));
 				
 				}
 				if(WriteFile.writeToProductFile()==true) {
-				System.out.println("updated");
+					System.out.println("updated");
 					
 				}
 			}

@@ -16,9 +16,9 @@ public class Product {
 	private String imageName;
 
 
-	private Product(){}	
+	public Product(){}	
 
-	private Product(String modelNumber, String productName, String productType, String description,
+	public Product(String modelNumber, String productName, String productType, String description,
 					Float costPrice, Float sellingPrice, int quantity, String imageName, String colour) {
 
 		this.modelNumber = modelNumber;

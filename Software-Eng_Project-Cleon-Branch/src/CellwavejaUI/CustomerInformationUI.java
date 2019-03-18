@@ -101,12 +101,11 @@ public class CustomerInformationUI extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Core.Customer.customers.clear();
 				for(int i=0; i<tmodel.getRowCount();i++) {
-					new	 Core.Customer(tmodel.getValueAt(i, 0).toString(),tmodel.getValueAt(i, 1).toString() , tmodel.getValueAt(i, 2).toString(), tmodel.getValueAt(i, 3).toString(),
-							tmodel.getValueAt(i, 4).toString());
-
+					Core.Customer.customers.add(new	 Core.Customer(tmodel.getValueAt(i, 0).toString(),tmodel.getValueAt(i, 1).toString() , tmodel.getValueAt(i, 2).toString(), tmodel.getValueAt(i, 3).toString(),
+							tmodel.getValueAt(i, 4).toString()));
 				}
 				if(WriteFile.writeToCustomerFile()==true) {
-				System.out.println("updated");
+					System.out.println("updated");
 					
 				}
 			}

@@ -6,7 +6,7 @@ import CellwavejaUI.addproductinformationGUI;
 
 public class Transaction{
 
-    private Date transactionDate;
+    private String transactionDate;
     private String customerId;
     private String customerName;
     private String productModelNumber;
@@ -19,7 +19,7 @@ public class Transaction{
     //private int productQuantity;
     //private ArrayList<Product> products = new ArrayList<Product>;
 
-    public Transaction(int transactionNum, Date transactionDate, String cashOrCard, String customerId, String customerName, String productModelNumber,
+    public Transaction(int transactionNum, String transactionDate, String cashOrCard, String customerId, String customerName, String productModelNumber,
                         String productName, String productType, String productColour, Float cashTendered){
 
         this.transactionDate = transactionDate;
@@ -38,8 +38,14 @@ public class Transaction{
     public int getTransactionNumber(){
         return transactionNumber;
     }
+    public String getTransactionMonth() {
+    	return transactionDate.substring(3,5);
+    }
+    public String getTransactionYear() {
+    	return transactionDate.substring(7, 11);
+    }
 
-    public Date getTransactionDate(){
+    public String getTransactionDate(){
         return transactionDate;
     }
 
