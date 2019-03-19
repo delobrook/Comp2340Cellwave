@@ -39,12 +39,14 @@ public class Transaction{
         return transactionNumber;
     }
     public String getTransactionMonth() {
-    	return transactionDate.substring(3,5);
+    	return this.transactionDate.substring(3,5);
     }
     public String getTransactionYear() {
-    	return transactionDate.substring(7, 11);
+    	return this.transactionDate.substring(7, 11);
     }
-
+    public String getTMonthYear() {
+    	return transactionDate.substring(3,11);
+    }
     public String getTransactionDate(){
         return transactionDate;
     }
@@ -78,7 +80,7 @@ public class Transaction{
     }
 
     public Float getCashtendered(){
-        return cashTendered;
+        return this.cashTendered;
     }
 
     public String[] print(){

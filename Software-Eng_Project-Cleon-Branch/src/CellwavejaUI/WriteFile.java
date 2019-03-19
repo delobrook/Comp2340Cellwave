@@ -67,7 +67,7 @@ public class WriteFile {
 				FileWriter filew= new FileWriter(customerInfo);
 				BufferedWriter buffw=new BufferedWriter(filew);
 				for(Core.Customer c: Core.Customer.customers) {
-					buffw.write(c.getCustomerid()+"//"+c.getName()+"//"+ c.getEmail() +"//"+c.getTelephone()+"//"+c.getAddressesasstring()+"//" );
+					buffw.write(c.getCustomerid()+"//"+c.getName()+"//"+ c.getEmail() +"//"+c.getTelephone()+"//"+c.getAddressesasstring()+"\n" );
 				}
 				buffw.close();
 				return true;
@@ -84,7 +84,7 @@ public class WriteFile {
 				FileWriter filew= new FileWriter(customerInfo);
 				BufferedWriter buffw=new BufferedWriter(filew);
 				for(Core.Customer c: Core.Customer.customers) {
-					buffw.write(c.getCustomerid()+"//"+c.getName()+"//"+ c.getEmail() +"//"+c.getTelephone()+"//"+c.getAddresses() );
+					buffw.write(c.getCustomerid()+"//"+c.getName()+"//"+ c.getEmail() +"//"+c.getTelephone()+"//"+c.getAddresses()+"\n");
 				}
 				buffw.close();
 			}catch(Exception e) {
@@ -112,7 +112,7 @@ public class WriteFile {
 				FileWriter filew= new FileWriter(transactionInfo);
 				BufferedWriter bufft=new BufferedWriter(filew);
 				for(Core.Transaction t: AddnewTransactiontofile.newTransactions) {
-					bufft.write(t.getTransactionNumber()+"//"+t.getCustomerId()+"//"+ t.getCustomerName() +"//"+t.getProductName()+"//"+t.getProductType()+"//"+t.getProductColour()+"//"+t.getTransactionDate()+"//"+t.getCashtendered()+"//"+t.getCashOrCard() );
+					bufft.write(t.getTransactionNumber()+"//"+t.getCustomerId()+"//"+ t.getCustomerName() +"//"+t.getProductName()+"//"+t.getProductType()+"//"+t.getProductColour()+"//"+t.getTransactionDate()+"//"+t.getCashtendered()+"//"+t.getCashOrCard()+"//"+t.getProductModelNumber()+"\n" );
 				}
 				bufft.close();
 				return true;
@@ -129,7 +129,7 @@ public class WriteFile {
 				FileWriter filew= new FileWriter(transactionInfo);
 				BufferedWriter bufft=new BufferedWriter(filew);
 				for(Core.Transaction t: AddnewTransactiontofile.newTransactions) {
-					bufft.write(t.getTransactionNumber()+"//"+t.getCustomerId()+"//"+ t.getCustomerName() +"//"+t.getProductName()+"//"+t.getProductType()+"//"+t.getProductColour()+"//"+t.getTransactionDate()+"//"+t.getCashtendered()+"//"+t.getCashOrCard());
+					bufft.write(t.getTransactionNumber()+"//"+t.getCustomerId()+"//"+ t.getCustomerName() +"//"+t.getProductName()+"//"+t.getProductType()+"//"+t.getProductColour()+"//"+t.getTransactionDate()+"//"+t.getCashtendered()+"//"+t.getCashOrCard()+"//"+t.getProductModelNumber()+"\n");
 				}
 				bufft.close();
 			}catch(Exception e) {

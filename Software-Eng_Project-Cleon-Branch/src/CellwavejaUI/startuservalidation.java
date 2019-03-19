@@ -97,9 +97,12 @@ public class startuservalidation extends JFrame {
 					manager_password = String.valueOf(passwordField.getPassword());
 					manager_username = String.valueOf(Username_field.getText());
 					if (manager_password.equals(password) && manager_username.equals(user)) {
-						Functionsui f=new Functionsui();
-						setContentPane(f);
-						revalidate();
+						
+						if(ReadFile.readTransactionfile() && ReadFile.readProductfile() && ReadFile.readCustomerfile()==true) {
+							Functionsui f=new Functionsui();	
+							setContentPane(f);
+							revalidate();
+						}
 					}
 
 				}

@@ -131,9 +131,8 @@ public class AddnewTransactiontofile extends JPanel {
 				//transactionDate = (dateFormat.format(cal.getTime()));
 				//String today = DateUtil.today();
 				//transactionDate = DateUtil.stringToDate(today);
-				Date td= new Date();
-				DateFormat df=new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
-				transactionDate=df.format(td);
+				DateFormat df=new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+				transactionDate=df.format(new Date());
 				boolean success=true;		
 				if(textField_2ProductName.getText().isEmpty()||textField_7CashOrCard.getText().isEmpty()||textField_4ProductType.getText().isEmpty()||textField_6Colour.getText().isEmpty()) {
 					success=false;

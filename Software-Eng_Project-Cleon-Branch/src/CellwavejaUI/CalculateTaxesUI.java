@@ -73,17 +73,17 @@ public class CalculateTaxesUI extends JPanel {
 		btnCalculateGCT.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String monthYear=textField_1.getText();
+				Float taxRate=Float.parseFloat(textField.getText());
 				Float totalGCT=(float)0;
+				String tMonthYear;
 				for (int i=0; i<AddnewTransactiontofile.newTransactions.size(); i++){
-					String tMonth =AddnewTransactiontofile.newTransactions.get(i).getTransactionMonth();
-					String tYear= AddnewTransactiontofile.newTransactions.get(i).getTransactionYear();
-					String tMonthYear=tMonth+"-"+tYear ;
+					tMonthYear =AddnewTransactiontofile.newTransactions.get(i).getTMonthYear();
 					if (monthYear.equals(tMonthYear)){
-						totalGCT+=AddnewTransactiontofile.newTransactions.get(i).getCashtendered();
+						totalGCT+=(float)(AddnewTransactiontofile.newTransactions.get(i).getCashtendered()*taxRate/100);
 					}
 				}
-				lblNewLabel_1.setText("$"+String.valueOf(totalGCT));
-			}
+				lblNewLabel_1.setText("$"+String.valueOf(totalGCT)); 
+				}
 		});
 		
 	}
