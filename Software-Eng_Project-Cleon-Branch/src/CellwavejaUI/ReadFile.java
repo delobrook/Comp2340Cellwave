@@ -14,7 +14,7 @@ public class ReadFile  {
 			String line= reader.readLine();
 			while(line!=null) {
 				String []attributes=line.split("//");
-				addproductinformationGUI.newProducts.add(Product.createProduct(attributes[0], attributes[1],attributes[2], attributes[3],Float.valueOf((attributes[4])),Float.valueOf( attributes[5]),Integer.valueOf( attributes[6]), attributes[7], attributes[8]));
+				Inventory.newProducts.add(Product.createProduct(attributes[0], attributes[1],attributes[2], attributes[3],Float.valueOf((attributes[4])),Float.valueOf( attributes[5]),Integer.valueOf( attributes[6]), attributes[7], attributes[8]));
 				text+= line;
 				line=reader.readLine();
 			}
@@ -32,7 +32,7 @@ public class ReadFile  {
 			String line= reader.readLine();
 			while(line!=null) {
 				String []attributes=line.split("//");
-				Core.Customer.customers.add(new Core.Customer(attributes[0], attributes[1],attributes[2], attributes[3],(attributes[4])));
+				CustomerInformation.customers.add(new Core.Customer(attributes[0], attributes[1],attributes[2], attributes[3],(attributes[4])));
 				text+= line;
 				line=reader.readLine();
 			}
@@ -50,7 +50,7 @@ public class ReadFile  {
 			String line= reader.readLine();
 			while(line!=null) {
 				String []attributes=line.split("//");
-				AddnewTransactiontofile.newTransactions.add(new Core.Transaction(Integer.parseInt(attributes[0]), attributes[6],attributes[8], attributes[1],attributes[2],attributes[9],attributes[3],attributes[4],attributes[5],Float.parseFloat(attributes[7])));
+				TransactionInformation.newTransactions.add(new Core.Transaction(Integer.parseInt(attributes[0]), attributes[6],attributes[8], attributes[1],attributes[2],attributes[9],attributes[3],attributes[4],attributes[5],Float.parseFloat(attributes[7])));
 				text+= line;
 				line=reader.readLine();
 			}

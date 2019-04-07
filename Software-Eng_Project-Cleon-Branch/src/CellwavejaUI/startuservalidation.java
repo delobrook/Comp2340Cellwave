@@ -53,9 +53,8 @@ public class startuservalidation extends JFrame {
 	 * Create the frame.
 	 */
 	public startuservalidation() {
-		String password="h";
-		String user="h";
-		boolean m;
+
+		
 	
 		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,20 +95,16 @@ public class startuservalidation extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 					manager_password = String.valueOf(passwordField.getPassword());
 					manager_username = String.valueOf(Username_field.getText());
-					if (manager_password.equals(password) && manager_username.equals(user)) {
-						
-						if(ReadFile.readTransactionfile() && ReadFile.readProductfile() && ReadFile.readCustomerfile()==true) {
+					Manager m= new Manager();
+					if (m.login(manager_username, manager_password)) {
+							Inventory.attachObserver(m);
+							CustomerInformation.attachObserver(m);
+							TransactionInformation.attachObserver(m);
 							Functionsui f=new Functionsui();	
 							setContentPane(f);
 							revalidate();
 						}
-					}
-
-				}
-	
-				
-				
-			
+					}	
 		});
 		signinbutton.setFont(new Font("Dialog", Font.BOLD, 16));
 		signinbutton.setForeground(Color.WHITE);

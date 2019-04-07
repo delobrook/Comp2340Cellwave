@@ -7,6 +7,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import Core.Product;
+import Core.Transaction;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import java.awt.event.ActionEvent;
 public class profitLostUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
+	private JTextField textField_1;
 
 	/**
 	 * Create the panel.
@@ -35,43 +37,44 @@ public class profitLostUI extends JPanel {
 		add(lblEnterSerialNumber);
 		
 		textField = new JTextField();
-		textField.setBounds(183, 71, 116, 30);
+		textField.setBounds(183, 71, 189, 30);
 		add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblProfitloss = new JLabel("Profit/Loss =");
 		lblProfitloss.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblProfitloss.setBounds(12, 122, 133, 30);
+		lblProfitloss.setBounds(12, 222, 133, 30);
 		add(lblProfitloss);
 		
 		JLabel lblresult = new JLabel("\"Result\"");
 		lblresult.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblresult.setBounds(157, 122, 245, 30);
+		lblresult.setBounds(157, 222, 245, 30);
 		add(lblresult);
 		
 		JButton btnCalculate = new JButton("Calculate");
+		btnCalculate.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnCalculate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (profit_Loss(textField.getText())==0){
+				if ((float)Transaction.profit_Loss(textField.getText(),textField_1.getText())==0){
 					lblresult.setText("Product was not sold ");
 				}else {
-					lblresult.setText(String.valueOf(profit_Loss(textField.getText())));
+					lblresult.setText(String.valueOf(Transaction.profit_Loss(textField.getText(),textField_1.getText())));
 				}
 			}
 		});
-		btnCalculate.setBounds(341, 74, 97, 25);
+		btnCalculate.setBounds(111, 177, 205, 32);
 		add(btnCalculate);
+		
+		JLabel lblEnterProductName = new JLabel("Enter Product name:");
+		lblEnterProductName.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblEnterProductName.setBounds(12, 127, 168, 33);
+		add(lblEnterProductName);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(183, 127, 189, 29);
+		add(textField_1);
+		textField_1.setColumns(10);
 
 	}
-	 public  float profit_Loss(String model) {
-			
-			float pL = 0;
-			for ( int i =0;i<addproductinformationGUI.newProducts.size(); i++) {
-				String m = addproductinformationGUI.newProducts.get(i).getModelNumber();
-				if (m.equals(model)) {
-					pL +=  addproductinformationGUI.newProducts.get(i).getSellingPrice()- addproductinformationGUI.newProducts.get(i).getSellingPrice();
-				} 
-			}
-			return pL;
-		}
+
 }

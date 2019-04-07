@@ -49,10 +49,10 @@ public class TransactionInformationUI extends JPanel {
 				tmodel.removeRow(x);
 				
 		}
-		AddnewTransactiontofile.newTransactions.clear();	
+		TransactionInformation.clearTransactionInformation();	
 		if(ReadFile.readTransactionfile()==true) {
-			for (int i=0; i<AddnewTransactiontofile.newTransactions.size(); i++){
-				tmodel.addRow(AddnewTransactiontofile.newTransactions.get(i).print());
+			for (int i=0; i<TransactionInformation.newTransactions.size(); i++){
+				tmodel.addRow(TransactionInformation.newTransactions.get(i).print());
 			}
 		}
 		table.setModel(tmodel);

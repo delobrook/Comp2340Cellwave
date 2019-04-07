@@ -62,7 +62,7 @@ public class addproductinformationGUI extends JPanel {
 	private String modelNumber;
 	private String imageName;
 
-	public static ArrayList <Product> newProducts = new ArrayList<Product>();
+	
 
 	private String productImageName;
 	private RenderedImage rImage;
@@ -185,7 +185,7 @@ public class addproductinformationGUI extends JPanel {
 					}	
 				}catch(NumberFormatException nfe) {
 					success=false;
-					JOptionPane.showMessageDialog(null, "INPUT QUANTITY AS A NUMBER E.g 14 or 214", "Input Error", JOptionPane.INFORMATION_MESSAGE);
+					Inventory.notifyObserverOfErrorsInAddingProduct(4);
 				}
 				try{	
 					if(textField_5CostPrice.getText().isEmpty()) {
@@ -194,7 +194,7 @@ public class addproductinformationGUI extends JPanel {
 					}
 				}catch(NumberFormatException nfe) {
 						success=false;
-						JOptionPane.showMessageDialog(null, "INPUT Cost Price AS A NUMBER E.g 14.00 or 214.00", "Input Error", JOptionPane.INFORMATION_MESSAGE);
+						Inventory.notifyObserverOfErrorsInAddingProduct(5);
 				}	
 				try{	
 					if(textField_6SellingPrice.getText().isEmpty()) {
@@ -203,12 +203,19 @@ public class addproductinformationGUI extends JPanel {
 					}
 				}catch(NumberFormatException nfe) {
 						success=false;
-						JOptionPane.showMessageDialog(null, "INPUT Selling price AS A NUMBER E.g 14.00 or 214.00", "Input Error", JOptionPane.INFORMATION_MESSAGE);
+						Inventory.notifyObserverOfErrorsInAddingProduct(6);
 				}			
 				if(textField_5CostPrice.getText().isEmpty()||textField_6SellingPrice.getText().isEmpty()||textFieldModelNumber.getText().isEmpty()||textField_1ProductName.getText().isEmpty()||textField_2ProductType.getText().isEmpty()||textField_3Quantity.getText().isEmpty()||textField_4Colour.getText().isEmpty()) {
 					success=false;
-					JOptionPane.showMessageDialog(null, "INPUT DATA IN ALL FIELDS", "Input Error", JOptionPane.INFORMATION_MESSAGE);
+					Inventory.notifyObserverOfErrorsInAddingProduct(7);
 				}	
+				for (int i=0; i<Inventory.newProducts.size(); i++){
+					if(textField_1ProductName.getText().equals(Inventory.newProducts.get(i).getProductName())&&textFieldModelNumber.getText().equals(Inventory.newProducts.get(i).getModelNumber())&&textField_2ProductType.getText().equals(Inventory.newProducts.get(i).getProductType())&&textField_4Colour.getText().equals(Inventory.newProducts.get(i).getColour())) {
+						success=false;
+						Inventory.notifyObserverOfErrorsInAddingProduct(8);
+						break;
+					}
+				}
 				if (success==true) {
 					modelNumber = textFieldModelNumber.getText();
 					productName = textField_1ProductName.getText();
@@ -227,9 +234,9 @@ public class addproductinformationGUI extends JPanel {
 						ioe.printStackTrace();
 					}*/
 					removeAll();
-					newProducts.add(Product.createProduct(modelNumber, productName, productType, description, costPrice, sellingPrice, quantity, imageName, colour));
+					Inventory.addNewProduct(Product.createProduct(modelNumber, productName, productType, description, costPrice, sellingPrice, quantity, imageName, colour));
 					if(WriteFile.writeToProductFile()==true) {
-						JOptionPane.showMessageDialog(null, "Product Information Saved", "Notification", JOptionPane.INFORMATION_MESSAGE);
+						Inventory.notifyObserversofSuccessfuladdition(1);
 					}
 					add(new InventoryUI(),BorderLayout.CENTER);
 					revalidate();
@@ -299,8 +306,6 @@ public class addproductinformationGUI extends JPanel {
 		
 	}
 
-	public ArrayList<Product> getNewProducts(){
-		return newProducts;
-	}
+	
 	
 }

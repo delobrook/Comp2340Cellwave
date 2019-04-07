@@ -5,6 +5,9 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import Core.Transaction;
+
 import javax.swing.JTextField;
 import javax.swing.DropMode;
 import javax.swing.JButton;
@@ -74,15 +77,8 @@ public class CalculateTaxesUI extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				String monthYear=textField_1.getText();
 				Float taxRate=Float.parseFloat(textField.getText());
-				Float totalGCT=(float)0;
-				String tMonthYear;
-				for (int i=0; i<AddnewTransactiontofile.newTransactions.size(); i++){
-					tMonthYear =AddnewTransactiontofile.newTransactions.get(i).getTMonthYear();
-					if (monthYear.equals(tMonthYear)){
-						totalGCT+=(float)(AddnewTransactiontofile.newTransactions.get(i).getCashtendered()*taxRate/100);
-					}
-				}
-				lblNewLabel_1.setText("$"+String.valueOf(totalGCT)); 
+				
+				lblNewLabel_1.setText("$"+Transaction.calculateTaxes(monthYear,taxRate)); 
 				}
 		});
 		
@@ -92,7 +88,7 @@ public class CalculateTaxesUI extends JPanel {
 			
 
 			double amount = 0;
-			for (Core.Product p : addproductinformationGUI.newProducts) {
+			for (Core.Product p : Inventory.newProducts) {
 				if (p.equals(model)) {
 					
 					int item = p.getQuantity();

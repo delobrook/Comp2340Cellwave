@@ -45,10 +45,10 @@ public class CustomerInformationUI extends JPanel {
 			tmodel.removeRow(x);
 			
 		}
-		Customer.customers.clear();
+		CustomerInformation.clearCustomerInformation();
 		if(ReadFile.readCustomerfile()==true) {
-			for (int i=0; i<Core.Customer.customers.size(); i++){
-				tmodel.addRow(Core.Customer.customers.get(i).print());
+			for (int i=0; i<CustomerInformation.customers.size(); i++){
+				tmodel.addRow(CustomerInformation.customers.get(i).print());
 			}
 		}
 		
@@ -82,10 +82,10 @@ public class CustomerInformationUI extends JPanel {
 				int selrow=table.getSelectedRow();
 				if (selrow>=0) {
 					tmodel.removeRow(selrow);
-					Core.Customer.customers.remove(selrow);
+					CustomerInformation.deletecustomer(selrow);
 					if(WriteFile.writeToCustomerFile()==true) {
-						for (int i=0; i<Core.Customer.customers.size(); i++){
-							tmodel.addRow(Core.Customer.customers.get(i).print());
+						for (int i=0; i<CustomerInformation.customers.size(); i++){
+							tmodel.addRow(CustomerInformation.customers.get(i).print());
 						}
 					}
 				}
@@ -99,9 +99,9 @@ public class CustomerInformationUI extends JPanel {
 		JButton btnUpdate = new JButton("UPDATE");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Core.Customer.customers.clear();
+				CustomerInformation.customers.clear();
 				for(int i=0; i<tmodel.getRowCount();i++) {
-					Core.Customer.customers.add(new	 Core.Customer(tmodel.getValueAt(i, 0).toString(),tmodel.getValueAt(i, 1).toString() , tmodel.getValueAt(i, 2).toString(), tmodel.getValueAt(i, 3).toString(),
+					CustomerInformation.customers.add(new Core.Customer(tmodel.getValueAt(i, 0).toString(),tmodel.getValueAt(i, 1).toString() , tmodel.getValueAt(i, 2).toString(), tmodel.getValueAt(i, 3).toString(),
 							tmodel.getValueAt(i, 4).toString()));
 				}
 				if(WriteFile.writeToCustomerFile()==true) {

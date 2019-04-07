@@ -20,7 +20,7 @@ public class WriteFile {
 			try {
 				FileWriter filew= new FileWriter(productInfo);
 				BufferedWriter buffw=new BufferedWriter(filew);
-				for(Core.Product p: addproductinformationGUI.newProducts) {
+				for(Core.Product p: Inventory.newProducts) {
 					buffw.write(p.getModelNumber()+"//"+p.getProductName()+"//"+ p.getProductType() +"//"+p.getDescription()+"//"+p.getCostPrice()+"//"+p.getSellingPrice()+"//"+p.getQuantity()+"//"+p.getImageName()+"//"+p.getColour()+"\n" );
 				}
 				buffw.close();
@@ -37,7 +37,7 @@ public class WriteFile {
 			try {
 				FileWriter filew= new FileWriter(productInfo);
 				BufferedWriter buffw=new BufferedWriter(filew);
-				for(Core.Product p: addproductinformationGUI.newProducts) {
+				for(Core.Product p: Inventory.newProducts) {
 					buffw.write(p.getModelNumber()+"//"+p.getProductName()+"//"+ p.getProductType() +"//"+p.getDescription()+"//"+p.getCostPrice()+"//"+p.getSellingPrice()+"//"+p.getQuantity()+"//"+p.getImageName()+"//"+p.getColour()+"\n" );
 				}
 				buffw.write("hello ");
@@ -66,8 +66,8 @@ public class WriteFile {
 			try {
 				FileWriter filew= new FileWriter(customerInfo);
 				BufferedWriter buffw=new BufferedWriter(filew);
-				for(Core.Customer c: Core.Customer.customers) {
-					buffw.write(c.getCustomerid()+"//"+c.getName()+"//"+ c.getEmail() +"//"+c.getTelephone()+"//"+c.getAddressesasstring()+"\n" );
+				for(Core.Customer c: CustomerInformation.customers) {
+					buffw.write(c.getCustomerid()+"//"+c.getName()+"//"+ c.getEmail() +"//"+c.getTelephone()+"//"+c.getAddresses()+"\n" );
 				}
 				buffw.close();
 				return true;
@@ -83,7 +83,7 @@ public class WriteFile {
 			try {
 				FileWriter filew= new FileWriter(customerInfo);
 				BufferedWriter buffw=new BufferedWriter(filew);
-				for(Core.Customer c: Core.Customer.customers) {
+				for(Core.Customer c: CustomerInformation.customers) {
 					buffw.write(c.getCustomerid()+"//"+c.getName()+"//"+ c.getEmail() +"//"+c.getTelephone()+"//"+c.getAddresses()+"\n");
 				}
 				buffw.close();
@@ -111,7 +111,7 @@ public class WriteFile {
 			try {
 				FileWriter filew= new FileWriter(transactionInfo);
 				BufferedWriter bufft=new BufferedWriter(filew);
-				for(Core.Transaction t: AddnewTransactiontofile.newTransactions) {
+				for(Core.Transaction t: TransactionInformation.newTransactions) {
 					bufft.write(t.getTransactionNumber()+"//"+t.getCustomerId()+"//"+ t.getCustomerName() +"//"+t.getProductName()+"//"+t.getProductType()+"//"+t.getProductColour()+"//"+t.getTransactionDate()+"//"+t.getCashtendered()+"//"+t.getCashOrCard()+"//"+t.getProductModelNumber()+"\n" );
 				}
 				bufft.close();
@@ -128,7 +128,7 @@ public class WriteFile {
 			try {
 				FileWriter filew= new FileWriter(transactionInfo);
 				BufferedWriter bufft=new BufferedWriter(filew);
-				for(Core.Transaction t: AddnewTransactiontofile.newTransactions) {
+				for(Core.Transaction t:TransactionInformation.newTransactions) {
 					bufft.write(t.getTransactionNumber()+"//"+t.getCustomerId()+"//"+ t.getCustomerName() +"//"+t.getProductName()+"//"+t.getProductType()+"//"+t.getProductColour()+"//"+t.getTransactionDate()+"//"+t.getCashtendered()+"//"+t.getCashOrCard()+"//"+t.getProductModelNumber()+"\n");
 				}
 				bufft.close();

@@ -26,7 +26,7 @@ public class AddnewTransactiontofile extends JPanel {
 	private String productColour;
 	private Float cashTendered;
 	
-	public static ArrayList<Transaction> newTransactions = new ArrayList<Transaction>();
+	
 	private JTextField textField_CashTendered;
 
 	/**
@@ -126,6 +126,8 @@ public class AddnewTransactiontofile extends JPanel {
 		btnNewButton.setBackground(Color.decode("#BEE5F9"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int right=0;
+				Product thePurProduct=null;
 				//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				//Calendar cal = Calendar.getInstance();
 				//transactionDate = (dateFormat.format(cal.getTime()));
@@ -136,10 +138,28 @@ public class AddnewTransactiontofile extends JPanel {
 				boolean success=true;		
 				if(textField_2ProductName.getText().isEmpty()||textField_7CashOrCard.getText().isEmpty()||textField_4ProductType.getText().isEmpty()||textField_6Colour.getText().isEmpty()) {
 					success=false;
-					JOptionPane.showMessageDialog(null, "INPUT DATA IN ALL FIELDS", "Input Error", JOptionPane.INFORMATION_MESSAGE);
+					Inventory.notifyObserverOfErrorsInAddingProduct(7);
+				}
+				for (int i=0; i<Inventory.newProducts.size(); i++){
+					if(textField_2ProductName.getText().equals(Inventory.newProducts.get(i).getProductName())&&textField_7ProductModelNumber.getText().equals(Inventory.newProducts.get(i).getModelNumber())&&textField_4ProductType.getText().equals(Inventory.newProducts.get(i).getProductType())&&textField_6Colour.getText().equals(Inventory.newProducts.get(i).getColour())) {
+						right=1;
+						thePurProduct= Inventory.newProducts.get(i);
+						if(Inventory.newProducts.get(i).getQuantity()<=0) {
+							right=2;
+						}
+						break;
+					}
+				}
+				if(right==0){
+					success=false;
+					Inventory.notifyObserverOfErrorsInAddingProduct(9);
+				}
+				if(right==2) {
+					success=false;
+					Inventory.notifyObserverOfErrorsInAddingProduct(10);
 				}
 				if (success==true) {
-					int transactionNum = newTransactions.size()+1;
+					int transactionNum = TransactionInformation.newTransactions.size()+1;
 
 					cashOrCard = textField_7CashOrCard.getText();
 					customerId = textFieldCustomerID.getText();
@@ -150,13 +170,18 @@ public class AddnewTransactiontofile extends JPanel {
 					productColour = textField_6Colour.getText();
 					cashTendered = Float.valueOf(textField_CashTendered.getText());
 					
-					
-
+					for (Product p:Inventory.newProducts) {
+						if(p.equals(thePurProduct)) {
+							p.setQuantity(thePurProduct.getQuantity()-1);
+							break;
+						}
+					}
 					removeAll();
-					newTransactions.add(new Transaction(transactionNum, transactionDate, cashOrCard, customerId, customerName, productModelNumber,
+					
+					TransactionInformation.newTransactions.add(new Transaction(transactionNum, transactionDate, cashOrCard, customerId, customerName, productModelNumber,
 										productName, productType, productColour, cashTendered));
 					if(WriteFile.writeToTransactionFile()==true) {
-						JOptionPane.showMessageDialog(null, "Transaction Information Saved", "Notification", JOptionPane.INFORMATION_MESSAGE);
+						Inventory.notifyObserversofSuccessfuladdition(2);;
 					}
 					add(new TransactionInformationUI(),BorderLayout.CENTER);
 					revalidate();

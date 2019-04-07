@@ -34,7 +34,7 @@ public class InventoryUI extends JPanel {
 		add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable();
-		
+		Inventory I= new Inventory();
 		DefaultTableModel tmodel=new DefaultTableModel();
 
 		tmodel.addColumn("Model#");
@@ -49,14 +49,14 @@ public class InventoryUI extends JPanel {
 			tmodel.removeRow(x);
 			
 		}
-		addproductinformationGUI.newProducts.clear();
+		Inventory.clearProductInformation();
 		if(ReadFile.readProductfile()==true) {
 			productimagename =new ArrayList<String>();
-			for(Product p:addproductinformationGUI.newProducts) {
+			for(Product p:Inventory.newProducts) {
 				productimagename.add(p.getImageName());
 			}
-			for (int i=0; i<addproductinformationGUI.newProducts.size(); i++){
-				tmodel.addRow(addproductinformationGUI.newProducts.get(i).print());
+			for (int i=0; i<Inventory.newProducts.size(); i++){
+				tmodel.addRow(Inventory.newProducts.get(i).print());
 			}
 		}
 		table.setModel(tmodel);
@@ -88,11 +88,11 @@ public class InventoryUI extends JPanel {
 				int selrow=table.getSelectedRow();
 				if (selrow>=0) {
 					tmodel.removeRow(selrow);
-					addproductinformationGUI.newProducts.remove(selrow);
+					Inventory.deleteProduct(selrow);
 					productimagename.remove(selrow);
 					if(WriteFile.writeToProductFile()==true) {
-						for (int i=0; i<addproductinformationGUI.newProducts.size(); i++){
-							tmodel.addRow(addproductinformationGUI.newProducts.get(i).print());
+						for (int i=0; i<Inventory.newProducts.size(); i++){
+							tmodel.addRow(Inventory.newProducts.get(i).print());
 						}
 					}
 				}
@@ -106,9 +106,9 @@ public class InventoryUI extends JPanel {
 		JButton btnUpdate = new JButton("Update");//updates information
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addproductinformationGUI.newProducts.clear();
+				Inventory.clearProductInformation();
 				for(int i=0; i<tmodel.getRowCount();i++) {
-					addproductinformationGUI.newProducts.add(Product.createProduct(tmodel.getValueAt(i, 0).toString(),tmodel.getValueAt(i, 1).toString() , tmodel.getValueAt(i, 2).toString(), tmodel.getValueAt(i, 7).toString(),
+					Inventory.addNewProduct(Product.createProduct(tmodel.getValueAt(i, 0).toString(),tmodel.getValueAt(i, 1).toString() , tmodel.getValueAt(i, 2).toString(), tmodel.getValueAt(i, 7).toString(),
 							Float.parseFloat(tmodel.getValueAt(i, 5).toString()),Float.parseFloat( tmodel.getValueAt(i, 6).toString()),Integer.parseInt(tmodel.getValueAt(i, 3).toString()),productimagename.get(i), tmodel.getValueAt(i, 4).toString()));
 				
 				}

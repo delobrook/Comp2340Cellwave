@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import Core.Customer;
 import Core.Product;
 
 import java.awt.BorderLayout;
@@ -102,7 +103,13 @@ public class Addnewcustomertofile extends JPanel {
 				
 				if(textFieldCustomerID.getText().isEmpty()||textField_1CustomerName.getText().isEmpty()||textField_2TelephoneNumber.getText().isEmpty()||textAreaAddresses.getText().isEmpty()||textArea_1Email.getText().isEmpty()) {
 					success=false;
-					JOptionPane.showMessageDialog(null, "INPUT DATA IN ALL FIELDS", "Input Error", JOptionPane.INFORMATION_MESSAGE);
+					Inventory.notifyObserverOfErrorsInAddingProduct(7);
+				}
+				for (int i=0; i<CustomerInformation.customers.size(); i++){
+					if(textField_1CustomerName.getText().equals(CustomerInformation.customers.get(i).getName()) &&textFieldCustomerID.getText().equals(CustomerInformation.customers.get(i).getCustomerid())) {
+						success=false;
+						Inventory.notifyObserverOfErrorsInAddingProduct(11);
+					}
 				}
 				if (success==true) {
 					customerid=textFieldCustomerID.getText();
@@ -111,9 +118,9 @@ public class Addnewcustomertofile extends JPanel {
 					telephone=textField_2TelephoneNumber.getText();
 					address=textAreaAddresses.getText();
 					removeAll();
-					Core.Customer.customers.add(new Core.Customer(customerid,customername,address,telephone,email));
+					CustomerInformation.customers.add(new Core.Customer(customerid,customername,address,telephone,email));
 					if (WriteFile.writeToCustomerFile()==true) {
-						JOptionPane.showMessageDialog(null, "Customer Information Saved", "Notification", JOptionPane.INFORMATION_MESSAGE);
+						Inventory.notifyObserversofSuccessfuladdition(3);
 					}
 					add(new CustomerInformationUI(),BorderLayout.CENTER);
 					revalidate();
